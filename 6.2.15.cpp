@@ -20,11 +20,11 @@ int main()
         else {
            num++;
 
-            if (lenw) {
-                if (lenw < minlen) {
+            if (lenw && lenw < minlen) {
+               
                     minlen = lenw;
                     minnum = num;
-                }
+             
                 
                 lenw = 0;
             }
