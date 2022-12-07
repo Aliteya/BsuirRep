@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<cmath>
 
 using namespace std;
@@ -6,7 +6,9 @@ using namespace std;
 void Out_Rez(double e){
     cout << e << '\n';
 }
-
+void efind(double s, double y, double& e) {
+   e = abs(s - y);
+}
 int main()
 {
     int i = 0;
@@ -20,7 +22,7 @@ int main()
         {
             r *= -1 * x * x;
             s += r * -1 / (2 * k * (2 * k - 1));
-             e = abs(s - y);
+            efind(s, y, e);
             Out_Rez(e);
             k++;
         } while (e >= 0.1);
