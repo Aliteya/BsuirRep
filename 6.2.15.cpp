@@ -20,11 +20,11 @@ int main()
         else {
            num++;
 
-            if (lenw && lenw < minlen) {
-               
+            if (lenw) {
+                if (lenw < minlen) {
                     minlen = lenw;
                     minnum = num;
-             
+                }
                 
                 lenw = 0;
             }
@@ -34,5 +34,4 @@ int main()
     cout << minnum << "\t" << minlen;
 
     return 0;
-}
 }
