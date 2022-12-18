@@ -1,0 +1,121 @@
+\documentclass{report}
+
+\usepackage[letterpaper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm,marginparwidth=1.6cm]{geometry}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage[english]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+\graphicspath{ {./images/} }
+
+\begin{document}
+
+
+
+\renewcommand{\thesection}{\Roman{section}}
+\titleformat{\section}{\large\centering\sc}{\thesection. }{0cm}{}[]
+
+
+
+\setcounter{section}{3}
+\setcounter{page}{200}
+
+\begin{figure}[thp]
+\addtocounter{figure}{10} 
+\end{figure}
+
+\begin{multicols}{2}
+
+
+
+\begin{minipage}{.5\textwidth}
+\centering
+    
+
+    \includegraphics[scale = 0.71,left]{1.png}
+
+\end{minipage}%
+ \captionof{figure}{An example of a logical rule that uses the result of
+recognizing a user’s emotion}
+
+\vspace{1cm}
+
+\noindent system knows, then we need to respond to this message
+with a greeting with a reference by name and ask the
+reason for sadness.
+
+\section{HARDWARE ARCHITECTURE}
+
+\par The implementation of the represented models within
+the framework of a hybrid system for analyzing the
+emotional state requires appropriate support, both from
+the software and hardware. Therefore, the issue of creating a hardware architecture of the system that allows
+effectively implementing the functional responsibilities
+imposed on the system is one of the significant stages
+for achieving the overall goal.
+\par The developed hardware architecture of the system
+should take into account the requirements and features
+of the implementation of both the semantic and neural
+network components of the system.
+
+
+
+\columnbreak
+
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{center}
+    \includegraphics[scale = 0.6]{2.png}
+\end{center}
+
+\end{minipage}%
+\captionof{figure}{The system hardware architecture}
+\vspace{1cm}
+
+\par The hardware requirements, from the point of view
+of the semantic part of the system, include the need
+to use computing tools with a processor based on the
+’x86’ architecture. This is due to the fact that initially
+the OSTIS platform as the basis of the software part
+of the system was developed for general-purpose CISC
+processors. Using this type of processor allows eliminating compatibility problems, simplifying debugging and
+testing the system. Therefore, it is necessary to have a
+computing device in the system based on this hardware
+architecture.
+\par On the other hand, to solve computer vision problems,
+modern neural network architectures require support for
+tensor operations from the hardware platform, which
+allows effectively organizing the process of running
+trained neural network models on the target device.
+However, general-purpose processors are not suitable for
+performing such operations with maximum performance.
+Therefore, to increase the speed of the system, it is
+necessary to include a special coprocessor device in the
+hardware architecture, which allows increasing the speed
+of the neural network part of the system.
+\par Taking into account the listed requirements, we have
+developed a hardware architecture of the system, the
+block diagram of which is shown in figure 12:
+\par The main elements that build up the hardware of the
+system are:
+\begin{itemize}
+    \item 
+ single-board computer (SBC) that serves as a central device, on which the OSTIS virtual machine is
+run and, accordingly, the interpretation of intelligent
+agents and a list of peripheral devices that perform
+the functions of input and output of video and
+audio information as well as auxiliary devices that
+perform the functions of supporting neural network
+\end{itemize}
+
+
+
+\end{multicols}
+
+\end{document}
