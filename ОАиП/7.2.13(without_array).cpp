@@ -231,16 +231,15 @@ void filedel() {
 	cout << "Кого щелкнул Танос?" << endl;
 	cin >> f;
 	int n = _filelength(_fileno(my_file)) / sizeof(stud);
-	for (int i = f; i < n; i++)
-	{
-		stud student;
-		fseek(my_file,  (i + 1) * sizeof(stud), 0);
-		fread(&student, sizeof(stud), 1, my_file);
-		fseek(my_file, i * sizeof(stud), 0);
-		fwrite(&student, sizeof(stud), 1, my_file);
+	stud* student = new stud;
+	fseek(my_file, f * sizeof(stud), SEEK_SET);
+	while (fread(student, sizeof(stud), 1, my_file)) {
+		fseek(my_file, (f - 1) * sizeof(stud), SEEK_SET);
+		fwrite(student, sizeof(stud), 1, my_file);
+		fseek(my_file, (++f) * sizeof(stud), SEEK_SET);
 	}
-
 	f = _chsize(_fileno(my_file), (f - 1) * sizeof(stud));
+	delete student;
 	fclose(my_file);
 	cout << endl << "Студент отчислен" << endl;
 }
@@ -284,3 +283,5 @@ void update() {
 	fwrite(&student, sizeof(stud), 1, my_file);
 	fclose(my_file);
 }
+
+
