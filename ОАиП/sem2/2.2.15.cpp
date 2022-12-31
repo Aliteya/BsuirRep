@@ -7,27 +7,27 @@
 using namespace std;
 
 struct equipment {
-    char name[15], marker[15], data[11], readiness[15];
-}*repair;
+	char name[15], marker[15], data[11], readiness[15];
+};
 
-void filecreate(char &, FILE*);
-void fileread(char &, FILE*);
+void filecreate(char&, FILE*);
+void fileread(char&, FILE*);
 void filefill(char&, FILE*);
 void fileseek(char&, FILE*);
 void linesearch(char&, FILE*, equipment*, int);
 //void binsearch(char&, FILE*, equipment*, int);
-//void filesort(char&, FILE*);
-//void basicsort(char&, FILE*, equipment*, int);
+void filesort(char&, FILE*, int&);
+void basicsort(char&, FILE*, equipment*, int);
 //void quicksort(char&, FILE*, equipment*, int);
 
 int main()
 {
-	
+
 	setlocale(LC_ALL, "ru");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	char path[70];
-	cout << "Введите путь" << endl;
+	cout << "Введите путь к текст. файлу" << endl;
 	cin >> path;
 	FILE* my_file = NULL;
 
@@ -37,7 +37,7 @@ int main()
 	bool opr = 1;
 	while (opr) {
 		cout << "Выберите" << endl;
-		cout << "1. Создать" << endl;
+		cout << "1.(файл и без этого создается) Создать" << endl;
 		cout << "2. Считать" << endl;
 		cout << "3. Записать" << endl;
 		cout << "4. Поиск" << endl;
@@ -47,10 +47,10 @@ int main()
 		switch (choise) {
 
 		case 1:  filecreate(*path, my_file);  break;
-		case 2:  fileread(*path,my_file);  break;
+		case 2:  fileread(*path, my_file);  break;
 		case 3:  filefill(*path, my_file); break;
 		case 4:  fileseek(*path, my_file); break;
-		//case 5:  filesort(*path, my_file); break;
+		case 5:  filesort(*path, my_file, flag); break;
 		case 6: return 0; break;
 		default: cout << "Выберите функцию из предложенных" << endl;
 		}
@@ -58,7 +58,7 @@ int main()
 	return 0;
 }
 void filecreate(char& path, FILE* my_file) {
-	
+
 	fopen_s(&my_file, &path, "wb+");
 	if (!my_file) {
 		cout << "еррор" << endl;
@@ -67,7 +67,7 @@ void filecreate(char& path, FILE* my_file) {
 	fclose(my_file);
 }
 void fileread(char& path, FILE* my_file) {
-	
+
 	fopen_s(&my_file, &path, "rb+");
 	if (!my_file) {
 		cout << "еррор" << endl;
@@ -79,7 +79,7 @@ void fileread(char& path, FILE* my_file) {
 		equipment repair;
 		fread(&repair, sizeof(equipment), 1, my_file);
 		cout << "номер заказа: " << i + 1 << endl;
-		cout << "Название: " << repair.name << endl;	
+		cout << "Название: " << repair.name << endl;
 		cout << "Марка: " << repair.marker << endl;
 		cout << "Дата: " << repair.data << endl;
 		cout << "Готовность: " << repair.readiness << endl;
@@ -89,14 +89,14 @@ void fileread(char& path, FILE* my_file) {
 }
 
 void filefill(char& path, FILE* my_file) {
-	
+
 	equipment repair;
 	fopen_s(&my_file, &path, "wb+");
 	if (!my_file) {
 		cout << "еррор" << endl;
 		return;
 	}
-    regex checkdata("(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((19|20)\\d\\d)");
+	regex checkdata("(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((19|20)\\d\\d)");
 	char v;
 	do {
 		cout << "Введите название" << endl;
@@ -127,26 +127,29 @@ void fileseek(char& path, FILE* my_file) {
 	equipment* repair = new equipment[n];
 	fread(repair, sizeof(equipment), n, my_file);
 	int choise;
-	cout << "Выберите поиск: 1 - линейный, 2 - бинарный(сначала отсортируйте)" << endl;
+	cout << "Выберите поиск: 1 - линейный,  2(не работает) - бинарный(сначала отсортируйте)" << endl;
 	cin >> choise;
 	switch (choise) {
 	case 1: linesearch(path, my_file, repair, n);
-	//case 2: binsearch(path, my_file, repair, n, *i);
+		//case 2: binsearch(path, my_file, repair, n, *i);
 	}
 	delete[] repair;
 	fclose(my_file);
 }
 void linesearch(char& path, FILE* my_file, equipment* repair, int n) {
 	char data1[11];
-	cout << "Введите дату которую хотите найти"<< endl;
-	cin >> data1;
-	for (int i = 0; i < n; i++ )
-	if (strcmp(repair[i].data, data1) == 0) {
-		cout << "Название: " << repair[i].name << endl;
-		cout << "Марка: " << repair[i].marker << endl;
-		cout << "Дата: " << repair[i].data << endl;
-		cout << "Готовность: " << repair[i].readiness << endl;
-	}
+	regex checkdata("(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((19|20)\\d\\d)");
+	cout << "Введите дату которую хотите найти" << endl;
+	do {
+		cin >> data1;
+	} while (regex_match(data1, checkdata) == false);
+	for (int i = 0; i < n; i++)
+		if (strcmp(repair[i].data, data1) == 0) {
+			cout << "Название: " << repair[i].name << endl;
+			cout << "Марка: " << repair[i].marker << endl;
+			cout << "Дата: " << repair[i].data << endl;
+			cout << "Готовность: " << repair[i].readiness << endl;
+		}
 
 }
 //void binsearch(char& path, FILE* my_file, equipment* repair, int n, int flag, int &i) {
@@ -170,24 +173,41 @@ void linesearch(char& path, FILE* my_file, equipment* repair, int n) {
 //	}
 //	else cout << "Сначала отсортируйте :^D";
 //}
-//void filesort(char& path, FILE* my_file, int &flag ) {
-//	fopen_s(&my_file, &path, "rb+");
-//	if (!my_file) {
-//		cout << "еррор" << endl;
-//		return;
-//	}
-//
-//	int n = _filelength(_fileno(my_file)) / sizeof(equipment);
-//	equipment* repair = new equipment[n];
-//	fread(repair, sizeof(equipment), n, my_file);
-//	int choise;
-//	flag = 1;
-//	cout << "Выберите сортировку: 1 - пузырек, 2 - быстрая сортировка " << endl;
-//	cin >> choise;
-//	switch (choise) {
-//	case 1: basicsort(path, my_file, repair, n);
-//	case 2: quicksort(path, my_file, repair, n);
-//	}
-//	delete[] repair;
-//	fclose(my_file);
-//}
+void filesort(char& path, FILE* my_file, int& flag) {
+	fopen_s(&my_file, &path, "rb+");
+	if (!my_file) {
+		cout << "еррор" << endl;
+		return;
+	}
+
+	int n = _filelength(_fileno(my_file)) / sizeof(equipment);
+	equipment* repair2 = new equipment[n];
+	fread(repair2, sizeof(equipment), n, my_file);
+	int choise;
+	flag = 1;
+	cout << "Выберите сортировку: 1 - пузырек, 2 - быстрая сортировка " << endl;
+	cin >> choise;
+	switch (choise) {
+	case 1: basicsort(path, my_file, repair2, n);
+		//case 2: quicksort(path, my_file, repair2, n);
+
+	}
+	fclose(my_file);
+	fopen_s(&my_file, &path, "wb+");
+	for (int i = 0; i < n; i++)
+		fwrite(&repair2[i], sizeof(equipment), 1, my_file);
+	delete[] repair2;
+	fclose(my_file);
+}
+void basicsort(char& path, FILE* my_file, equipment* repair2, int n) {
+	for (int i = 0; i < n - 1; i++) {
+		if (strcmp(repair2[i].data, repair2[i + 1].data) == true)
+			swap(repair2[i].data, repair2[i + 1].data);
+	}
+	for (int i = 0; i < n; i++) {
+		cout << "Название: " << repair2[i].name << endl;
+		cout << "Марка: " << repair2[i].marker << endl;
+		cout << "Дата: " << repair2[i].data << endl;
+		cout << "Готовность: " << repair2[i].readiness << endl;
+	}
+}
