@@ -14,11 +14,11 @@ void filecreate(char&, FILE*);
 void fileread(char&, FILE*);
 void filefill(char&, FILE*);
 void fileseek(char&, FILE*, int);
-void linesearch(char&, FILE*, equipment*, int);
-void binsearch(char&, FILE*, equipment*, int, int);
+void linesearch(equipment*, int);
+void binsearch(equipment*, int, int);
 void filesort(char&, FILE*, int&);
-void basicsort(char&, FILE*, equipment*, int);
-//void quicksort(char&, FILE*, equipment*, int);
+void basicsort(equipment*, int);
+void quicksort(equipment*, int, int);
 
 int main()
 {
@@ -130,13 +130,13 @@ void fileseek(char& path, FILE* my_file, int flag) {
 	cout << "Выберите поиск: 1 - линейный,  2(ловит только 1 вхождение) - бинарный(сначала отсортируйте)" << endl;
 	cin >> choise;
 	switch (choise) {
-	case 1: linesearch(path, my_file, repair, n);
-	case 2: binsearch(path, my_file, repair, n, flag);
+	case 1: linesearch(repair, n);
+	case 2: binsearch(repair, n, flag);
 	}
 	delete[] repair;
 	fclose(my_file);
 }
-void linesearch(char& path, FILE* my_file, equipment* repair, int n) {
+void linesearch(equipment* repair, int n) {
 	char data1[11];
 	regex checkdata("((19|20)\\d\\d)\\.(0?[1-9]|1[012])\\.(0?[1-9]|[12][0-9]|3[01])");
 	cout << "Введите дату(гггг.мм.дд) которую хотите найти" << endl;
@@ -152,7 +152,7 @@ void linesearch(char& path, FILE* my_file, equipment* repair, int n) {
 		}
 
 }
-void binsearch(char& path, FILE* my_file, equipment* repair, int n, int flag) {
+void binsearch(equipment* repair, int n, int flag) {
 	
 	if (flag == 1) {
 		int low = 0, high = n - 1, mid = 0;
@@ -188,12 +188,19 @@ void filesort(char& path, FILE* my_file, int& flag) {
 	fread(repair2, sizeof(equipment), n, my_file);
 	int choise;
 	flag = 1;
-	cout << "Выберите сортировку: 1 - пузырек, 2 - быстрая сортировка " << endl;
+	int start = 0, end = n - 1;
+	cout << "Выберите сортировку: 1 - пузырек, 2(не работает) - быстрая сортировка " << endl;
 	cin >> choise;
 	switch (choise) {
-	case 1: basicsort(path, my_file, repair2, n);
-		//case 2: quicksort(path, my_file, repair2, n);
+	case 1: basicsort(repair2, n); break;
+	case 2: quicksort(repair2, start, end); break;
 
+	}
+	for (int i = 0; i < n; i++) {
+		cout << "Название: " << repair2[i].name << endl;
+		cout << "Марка: " << repair2[i].marker << endl;
+		cout << "Дата: " << repair2[i].data << endl;
+		cout << "Готовность: " << repair2[i].readiness << endl;
 	}
 	fclose(my_file);
 	fopen_s(&my_file, &path, "wb+");
@@ -202,15 +209,41 @@ void filesort(char& path, FILE* my_file, int& flag) {
 	delete[] repair2;
 	fclose(my_file);
 }
-void basicsort(char& path, FILE* my_file, equipment* repair2, int n) {
+void basicsort(equipment* repair2, int n) {
 	for (int i = 0; i < n - 1; i++) {
 		if (strcmp(repair2[i].data, repair2[i + 1].data) == true)
 			swap(repair2[i].data, repair2[i + 1].data);
 	}
-	for (int i = 0; i < n; i++) {
-		cout << "Название: " << repair2[i].name << endl;
-		cout << "Марка: " << repair2[i].marker << endl;
-		cout << "Дата: " << repair2[i].data << endl;
-		cout << "Готовность: " << repair2[i].readiness << endl;
+}
+int partition(equipment* repair2, int start, int end)
+{
+	char* pivot = repair2[end].data;
+
+	int pIndex = start;
+
+	for (int i = start; i < end; i++)
+	{
+		if (strcmp(repair2[i].data, pivot) <= 0)
+		{
+			swap(repair2[i], repair2[pIndex]);
+			pIndex++;
+		}
 	}
+
+	swap(repair2[pIndex], repair2[end]);
+
+	return pIndex;
+}
+
+void quicksort(equipment* repair2, int start, int end)
+{
+	
+	if (start >= end) {
+		return;
+	}
+    int pivot = partition(repair2,start,end);
+
+	quicksort(repair2, start, pivot - 1);
+
+	quicksort(repair2, pivot + 1, end);
 }
