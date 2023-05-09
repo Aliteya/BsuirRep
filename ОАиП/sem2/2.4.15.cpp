@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -8,12 +8,6 @@ struct que {
 	que* prev;
 };
 
-//void newNode(que **root,que **end ,int _val) {
-//	curr = new que;
-//	curr->val = _val;
-//	curr->next = curr->prev = nullptr;
-//	*root = *end = curr;
-//}
 
 void push_back(que** root, int new_val) {
 	que* curr = new que;
@@ -97,6 +91,7 @@ int main() {
 	push_back(&root, 1);
 	push_back(&root, 2);
 	push_front(&root, 3);
+	print(root);
 	task(&root);
 	print(root);
 	clear(&root);
