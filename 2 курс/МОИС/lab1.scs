@@ -1,0 +1,45 @@
+theater_set
+        <-sc_node_class;
+        ->concept_series;;
+
+concept_theater_production
+        => nrel_main_idtf:
+        [Театральная постановка]
+        (* <- lang_rus;;*);
+        [Theater production]
+        (* <- lang_en;;*);;
+
+concept_theater_production <= nrel_sc_text_translation:...
+        (*
+                <- definition;;
+                -> [Постановка - произведение театрального искусства, созданное на основе драматического или музыкально-драматического произведения.];;
+        *);;
+
+concept_theater_production => nrel_components:...
+    (*
+      <- sc_node_not_binary_tuple;;
+      -> concept_plot;;
+      -> concept_kind;;
+      -> concept_actors;;
+    *);;
+
+constituents_set 
+        <- sc_node_class;
+        -> concept_plot;;
+        -> concept_kind;;
+        -> concept_actors;;
+
+concept_theater_production => nrel_appointment: introdution_to_art;;
+mental_impact_set
+        <- sc_node_class;
+        -> introdution_to_art;;
+
+concept_theater_production => nrel_time_of_first_appearance: V century BC;;
+time_set
+        <- sc_node_class;
+        -> V century BC;;
+
+concept_theater_production => nrel_place_of_first_appearance: Greece;;
+place_set
+        <- sc_node_class;
+        -> Greece;; 
