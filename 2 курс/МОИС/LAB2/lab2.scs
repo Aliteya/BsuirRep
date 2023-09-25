@@ -9,91 +9,76 @@ section_subject_domain_of_theater
     <= nrel_section_decomposition:...
     (*
         <- sc_node_tuple;;
-        <- section_subject_domain_of_drama_theater;;
-        <- section_subject_domain_of_opera;;
-        <- section_subject_domain_of_ballet;;
-        <- section_subject_domain_of_puppet_theater;;
-        <- section_subject_domain_of_pantomime;;
-        <- section_subject_domain_of_musical;;
-        <- section_subject_domain_of_operetta;;
-        <- section_subject_domain_of_author_theater;;
-        <- section_subject_domain_of_comedy_theater;;
-        <- section_subject_domain_of_street_theater;;
-        <- section_subject_domain_of_ice_shows;;
-        <- section_subject_domain_of_buffoonery;;
-        <- section_subject_domain_of_national_theater;;
-        <- section_subject_domain_of_shadow_play;;
-        <- section_subject_domain_of_underwater_theater;;
-        <- section_subject_domain_of_immersive_theater;;
-        <- section_subject_domain_of_shadow_play;;
+
+        <- section_subject_domain_of_drama_theater(* => nrel_main_idtf: [Раздел. Предметная область драматического театра](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_opera(* => nrel_main_idtf: [Раздел. Предметная область оперы](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_ballet(* => nrel_main_idtf: [Раздел. Предметная область балета](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_puppet_theater(* => nrel_main_idtf: [Раздел. Предметная область кукольного театра](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_pantomime(* => nrel_main_idtf: [Раздел. Предметная область пантомимы](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_musical(* => nrel_main_idtf: [Раздел. Предметная область мюзикла](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_operetta(* => nrel_main_idtf: [Раздел. Предметная область оперетты](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_shadow_play(* => nrel_main_idtf: [Раздел. Предметная область театра теней](* <- lang_ru;;*);;*);;
+        <- section_subject_domain_of_underwater_theater(* => nrel_main_idtf: [Раздел. Предметная область подводного театра](* <- lang_ru;;*);;*);;
     *);
 
     -> rrel_key_sc_element: 
-        concept_play;
-        concept_premiere;
-        nrel_written_by;
-        nrel_played_by;
-        nrel_stage_design_by;
-        nrel_costume_design_by;
-        nrel_lighting_design_by;
-        nrel_sound_design_by;
-        nrel_choreographed_by;
+        concept_staging(* => nrel_main_idtf: [Постановка] (* <- lang_ru;;*);;*);
+        concept_premiere(* => nrel_main_idtf: [Премьера] (* <- lang_ru;;*);;*);
+        nrel_written_by(* => nrel_main_idtf: [Написано] (* <- lang_ru;;*);;*);
+        nrel_played_by(* => nrel_main_idtf: [Сыграно] (* <- lang_ru;;*);;*);
+        nrel_stage_design_by(* => nrel_main_idtf: [Созданы декорации] (* <- lang_ru;;*);;*);
+        nrel_costume_design_by(* => nrel_main_idtf: [Созданы костюмы] (* <- lang_ru;;*);;*);
+        nrel_lighting_design_by(* => nrel_main_idtf: [Настроен свет] (* <- lang_ru;;*);;*);
+        nrel_sound_design_by(* => nrel_main_idtf: [Выбрана музыка] (* <- lang_ru;;*);;*);
+        nrel_choreographed_by(* => nrel_main_idtf: [Хореография поставлена] (* <- lang_ru;;*);;*);
 
 
     <- non_atomic_section;;
 
 section_subject_domain_of_theater
     = [*
-        section_subject_domain_of_theater
-
+        subject_domain_of_theater
+        
             => nrel_main_idtf:
-            [Раздел. Предметная область театр]
+            [Предметная область театр]
             (* <- lang_ru;;*);
-            [Section. Subject domain of theater]
+            [Subject domain of theater]
             (* <- lang_en;;*);
+             
+            <-subject_domain;
+            <-sc_node_struct;
 
-            => nrel_private_subject_domain:
-                subject_domain_of_drama_theater;
-                subject_domain_of_opera;
-                subject_domain_of_ballet;
-                subject_domain_of_puppet_theater;
-                subject_domain_of_pantomime;
-                subject_domain_of_musical;
-                subject_domain_of_operetta;
-                subject_domain_of_author_theater;
-                subject_domain_of_comedy_theater;
-                subject_domain_of_street_theater;
-                subject_domain_of_ice_shows;
-                subject_domain_of_buffoonery;
-                subject_domain_of_national_theater;
-                subject_domain_of_shadow_play;
-                subject_domain_of_underwater_theater;
-                subject_domain_of_immersive_theater;
-                subject_domain_of_shadow_play;
-                subject_domain_of_light_signal_optical_instruments;
+            => nrel_private_subject_domain: 
+                subject_domain_of_drama_theater
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область драматического театра](* <- lang_ru;;*);;*);
+                subject_domain_of_opera
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область оперы](* <- lang_ru;;*);;*);
+                subject_domain_of_ballet
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область балета](* <- lang_ru;;*);;*);
+                subject_domain_of_puppet_theater
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область кукольного театра](* <- lang_ru;;*);;*);
+                subject_domain_of_pantomime
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область пантомимы](* <- lang_ru;;*);;*);
+                subject_domain_of_musical
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область мюзикла](* <- lang_ru;;*);;*);
+                subject_domain_of_operetta
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область оперетты](* <- lang_ru;;*);;*);
+                subject_domain_of_shadow_play
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область театра теней](* <- lang_ru;;*);;*);
+                subject_domain_of_underwater_theater
+                (* <-sc_node_struct;; => nrel_main_idtf: [Предметная область подводного театра](* <- lang_ru;;*);;*);
 
             <= nrel_private_subject_domain:
-                subject_domain_of_theater;
+             subject_domain_of_theater;
 
-            -> rrel_maximum_object_research_class:
-                concept_theater;
+            -> rrel_maximum_studied_object_class:
+                concept_theater(* => nrel_main_idtf: [Театр](* <- lang_ru;;*);;*);
 
-            -> rrel_non_maximum_object_research_class:
-                concept_play;
+            -> rrel_not_maximum_studied_object_class:
+                concept_staging;
                 concept_premiere;
 
-            -> rrel_researched_relation:
-                nrel_written_by;
-                nrel_played_by;
-                nrel_stage_design_by;
-                nrel_costume_design_by;
-                nrel_lighting_design_by;
-                nrel_sound_design_by;
-                nrel_choreographed_by;
-
-            <- rrel_subject_domain:
-                concept_play;
-                concept_premiere;
+            -> rrel_explored_relation:
                 nrel_written_by;
                 nrel_played_by;
                 nrel_stage_design_by;

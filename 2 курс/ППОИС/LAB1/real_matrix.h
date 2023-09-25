@@ -1,3 +1,4 @@
+#pragma once
 #ifndef REAL_MATRIX_H
 #define REAL_MATRIX_H
 
@@ -5,11 +6,11 @@
 #include <fstream>
 
 class real_matrix {
-public:
+private:
     int rows;
     int cols;
-    double **content;
-
+    double** content;
+public:
     real_matrix();
     real_matrix(int _rows, int _cols);
     real_matrix(const char* file_name);
@@ -20,7 +21,7 @@ public:
     real_matrix& operator--();
     real_matrix operator--(int);
     int get_rows() const;
-    int get_cols() const;   
+    int get_cols() const;
     double get_element(int _i, int _j) const;
     friend std::ostream& operator<<(std::ostream& os, const real_matrix& rm);
     bool quad_check();
