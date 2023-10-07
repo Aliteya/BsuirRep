@@ -111,7 +111,7 @@ public:
     }
 }; 
 
-class car: auto_repair_shop{
+class car{
 public:
     int condition;
     Engine engine;
