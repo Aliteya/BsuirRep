@@ -22,18 +22,18 @@ public:
 class car_part{
 public:
     int condition;
-    virtual void car_say() = 0;
-    virtual void car_repair() = 0;
+    virtual void part_say() = 0;
+    virtual void part_repair() = 0;
 };
 
 class Engine : public car_part{
 public:
-    void car_say() override{
+    void part_say() override{
         if (this->condition == 0)
         std::  cout << "engine say BTOOOOOOM" << std:: endl; 
     }
     
-    void car_repair() override{
+    void part_repair() override{
         int array[4];
         srand(time(0));
     std :: cout << "To fix the engine you need to run the pistons in the correct order" << std :: endl;
@@ -49,74 +49,65 @@ public:
         std::   cin >> piston;
             }
         }
+        this->condition = 1;
     }
 };
 
 class Suspension : public car_part{
 public:
-    void car_say() override{
+    void part_say() override{
         if (this->condition == 0)
         std::  cout << "suspension say PSSSSSSSSSSGGGIIII" << std:: endl; 
     }
       
-    void car_repair() override{
-        int array[4];
-        srand(time(0));
-    std :: cout << "To fix the engine you need to run the pistons in the correct order" << std :: endl;
-        for (int i = 0; i < 4; i++)
-            array[i] = 1 + rand() % 4;
-        int piston;    
-        for (int i = 0; i < 4; i++){
-            std:: cout << "Start " << array[i] << " piston" << std :: endl;
-            std :: cin >> piston;
-            if (piston != array[i]){
-        std::   cin.clear();
-        std::   cin.ignore();
-        std::   cin >> piston;
+    void part_repair() override{
+        std :: cout << "To fix the suspension you need to guess the balancing number from 1 to 100" << std :: endl;
+        int corr_num = 1 + rand() % 100;
+        int user_num;
+        std :: cin >> user_num;
+        while(user_num != corr_num){
+            if(user_num < corr_num){
+                std:: cout << "Too low! Try again: ";
+            } 
+            else {
+                std:: cout << "Too high! Try again: ";
             }
+            std:: cin.clear();
+            std:: cin.ignore();
+            std:: cin >> user_num;
         }
+        std:: cout << "The suspension are now repaired" << std:: endl;
+        this->condition = 1;
     }
 }; 
 
 class Battery: public car_part{
 public:
-    void car_say(){
+    void part_say(){
         if (this->condition == 0)
         std::  cout << "battery say PICPICPIC" << std:: endl; 
     }
       
-    void car_repair() override{
+    void part_repair() override{
         std :: cout << "The battery is charging, please wait" << std :: endl;
-        for(int i = 0; i <= 100; i+=10){
+        for(int i = 0; i <= 100; i += 10){
     std::   cout << "battery is " << i << " percent charged" << std:: endl;
             Sleep(500);
         }
+        this->condition = 1;
     }
 }; 
 
 class Brakes: public car_part{
 public:
-    void car_say(){
+    void part_say(){
         if (this->condition == 0)
         std::  cout << "brakers say ATTENTION FIRE ON THE FLOOR" << std:: endl; 
     }
       
-    void car_repair() override{
-        int array[4];
-        srand(time(0));
-    std :: cout << "To fix the engine you need to run the pistons in the correct order" << std :: endl;
-        for (int i = 0; i < 4; i++)
-            array[i] = 1 + rand() % 4;
-        int piston;    
-        for (int i = 0; i < 4; i++){
-            std:: cout << "Start " << array[i] << " piston" << std :: endl;
-            std :: cin >> piston;
-            if (piston != array[i]){
-        std::   cin.clear();
-        std::   cin.ignore();
-        std::   cin >> piston;
-            }
-        }
+    void part_repair() override{
+        std :: cout << "A cool car doesn't need brakes" << std :: endl;
+        this->condition = 1;
     }
 }; 
 
@@ -145,16 +136,16 @@ public:
             this->condition = 0;
         }
         if(!e_cond){
-            engine.car_say();
+            engine.part_say();
         }
         if(!s_cond){
-            suspension.car_say();
+            suspension.part_say();
         }
         if(!bat_cond){
-            battery.car_say();
+            battery.part_say();
         }
         if(!br_cond){
-            brakes.car_say();
+            brakes.part_say();
         }
     }
 
@@ -169,20 +160,16 @@ public:
             std:: cout << "in the game you can drive without any rules, but... in life, be careful on the road. And fasten your seat belt." << std:: endl;
             
             if(!engine.condition){
-                engine.car_repair();
-                engine.condition = 1;
+                engine.part_repair();
             }
             if(!suspension.condition){
-                suspension.car_repair();
-                suspension.condition = 1;
+                suspension.part_repair();
             }
             if(!battery.condition){
-                battery.car_repair();
-                battery.condition = 1;
+                battery.part_repair();
             }
             if(!brakes.condition){
-                brakes.car_repair();
-                brakes.condition = 1;
+                brakes.part_repair();
             }
         } 
         
@@ -201,7 +188,7 @@ car fcar;
 
 fcar.car_say();
 
-fcar.car_disaster(0, 1, 0, 1);
+fcar.car_disaster(0, 0, 0, 0);
 
 fcar.car_repair(aush);
 aush.greet();
