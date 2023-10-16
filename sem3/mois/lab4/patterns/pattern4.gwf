@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GWF version="2.0">
+    <staticSector>
+        <node type="node/const/perm/role" idtf="rrel_not_maximum_studied_object_class" shapeColor="0" id="54669072" parent="140378053345984" left="0" top="0" right="227.422" bottom="23" textColor="164" text_angle="0" text_font="Times New Roman" font_size="10" x="324.5" y="661.5" haveBus="false" idtf_pos="0">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <node type="node/const/perm/group" idtf="production_set" shapeColor="0" id="57309856" parent="140378053345984" left="0" top="0" right="87.3906" bottom="23" textColor="164" text_angle="0" text_font="Times New Roman" font_size="10" x="440.5" y="465.5" haveBus="false" idtf_pos="0">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <node type="node/const/perm/struct" idtf="subject_domain_of_theater" shapeColor="0" id="50498960" parent="140378053345984" left="0" top="0" right="154.797" bottom="23" textColor="164" text_angle="0" text_font="Times New Roman" font_size="10" x="-56.5" y="575.47" haveBus="false" idtf_pos="0">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <node type="node/const/perm/relation" idtf="nrel_private_subject_domain" shapeColor="0" id="56077568" parent="140378053345984" left="0" top="0" right="163.891" bottom="23" textColor="164" text_angle="0" text_font="Times New Roman" font_size="10" x="81.5" y="479.47" haveBus="false" idtf_pos="3">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <node type="node/var/perm/struct" idtf="" shapeColor="0" id="40722208" parent="140378053345984" x="206" y="573.97" haveBus="false" idtf_pos="0">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <node type="node/var/perm/general" idtf="" shapeColor="0" id="55263744" parent="140378053345984" x="441" y="573.97" haveBus="false" idtf_pos="0">
+            <content type="0" mime_type="" content_visibility="false" file_name=""/>
+        </node>
+        <pair type="pair/var/pos/perm/orient/membership" idtf="" shapeColor="0" id="49352992" parent="140378053345984" id_b="57309856" id_e="55263744" b_x="440.5" b_y="465.5" e_x="441" e_y="573.97" dotBBalance="0" dotEBalance="0">
+            <points/>
+        </pair>
+        <pair type="pair/var/pos/perm/orient/membership" idtf="" shapeColor="0" id="49655248" parent="140378053345984" id_b="54669072" id_e="53828192" b_x="324.5" b_y="661.5" e_x="341" e_y="13" dotBBalance="0" dotEBalance="0.502315">
+            <points/>
+        </pair>
+        <pair type="pair/var/pos/perm/orient/membership" idtf="" shapeColor="0" id="55427888" parent="140378053345984" id_b="56077568" id_e="50863424" b_x="81.5" b_y="479.47" e_x="341" e_y="13" dotBBalance="0" dotEBalance="0.522059">
+            <points/>
+        </pair>
+        <pair type="pair/var/-/perm/orient" idtf="" shapeColor="0" id="50863424" parent="140378053345984" id_b="50498960" id_e="40722208" b_x="-56.5" b_y="575.47" e_x="206" e_y="573.97" dotBBalance="0" dotEBalance="0">
+            <points/>
+        </pair>
+        <pair type="pair/var/pos/perm/orient/membership" idtf="" shapeColor="0" id="53828192" parent="140378053345984" id_b="40722208" id_e="55263744" b_x="206" b_y="573.97" e_x="441" e_y="573.97" dotBBalance="0" dotEBalance="0">
+            <points/>
+        </pair>
+        <contour type="contour/const/perm" idtf="pattern4" shapeColor="0" id="140378053345984" parent="0" left="0" top="0" right="52.75" bottom="23" textColor="164" text_angle="0" text_font="Times New Roman" font_size="10" idtf_pos_x="-339" idtf_pos_y="-164">
+            <points>
+                <point x="-103.6" y="360.2"/>
+                <point x="-103.6" y="721"/>
+                <point x="606" y="721"/>
+                <point x="606" y="358.6"/>
+            </points>
+        </contour>
+    </staticSector>
+</GWF>
