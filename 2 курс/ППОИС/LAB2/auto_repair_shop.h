@@ -4,7 +4,7 @@
 #include <vector> 
 #include "windows.h"
 
-class auto_repair_shop { 
+class Auto_repair_shop { 
 public: 
     int car_counter; 
     std::string name; 
@@ -15,45 +15,45 @@ public:
     int brakers_price; 
     int profit;
 
-    auto_repair_shop();
-    auto_repair_shop(std::string _name);
+    Auto_repair_shop();
+    Auto_repair_shop(std::string _name);
     void greet();
     void see_ya();
     void exp_list();
 };
 
-class car_part { 
+class Car_part { 
 public: 
     int condition;    
     virtual void part_say() = 0; 
     virtual void part_repair() = 0; 
 };
 
-class Engine : public car_part { 
+class Engine : public Car_part { 
 public: 
     void part_say() override; 
     void part_repair() override; 
 };
 
-class Suspension : public car_part { 
+class Suspension : public Car_part { 
 public: 
     void part_say() override; 
     void part_repair() override; 
 };
 
-class Battery : public car_part { 
+class Battery : public Car_part { 
 public: 
     void part_say() override; 
     void part_repair() override; 
 };
 
-class Brakes : public car_part { 
+class Brakes : public Car_part { 
 public: 
     void part_say() override; 
     void part_repair() override; 
 };
 
-class car { 
+class Car { 
 public: 
     int condition; 
     std::string car_name; 
@@ -66,47 +66,47 @@ public:
     Battery battery; 
     Brakes brakes;
 
-    car();
-    car(std::string _car_name, int _e_cond, int _s_cond, int _bat_cond, int _br_cond);
-    ~car();
+    Car();
+    Car(std::string _car_name, int _e_cond, int _s_cond, int _bat_cond, int _br_cond);
+    ~Car();
     void car_disaster();
     void car_say();
-    void car_repair(auto_repair_shop& shop);
-    void make_exp_list(auto_repair_shop& shop);
+    void car_repair(Auto_repair_shop& shop);
+    void make_exp_list(Auto_repair_shop& shop);
 };
 
-class human { 
+class Human { 
 protected: 
     std::string name; 
 public:
-    human(); 
-    human(std::string _name); 
+    Human(); 
+    Human(std::string _name); 
 };
 
-class master : public human { 
+class Master : public Human { 
 public: 
-    master(); 
-    master(std::string _name); 
-    void start_repair(car& my_car, auto_repair_shop& shop); 
+    Master(); 
+    Master(std::string _name); 
+    void start_repair(Car& my_car, Auto_repair_shop& shop); 
 };
 
-class ordinary_worker : public human { 
+class Ordinary_worker : public Human { 
 public: 
-    ordinary_worker(); 
-    ordinary_worker(std::string _name); 
-    void start_check(car& my_car, master& my_master, auto_repair_shop& shop); 
+    Ordinary_worker(); 
+    Ordinary_worker(std::string _name); 
+    void start_check(Car& my_car, Master& my_master, Auto_repair_shop& shop); 
 };
 
-class cashier : public human { 
+class Cashier : public Human { 
 public: 
-    cashier(); 
-    cashier(std::string _name); 
-    void profit_check(auto_repair_shop& shop); 
+    Cashier(); 
+    Cashier(std::string _name); 
+    void profit_check(Auto_repair_shop& shop); 
 };
 
-class client : public human { 
+class Client : public Human { 
 public: 
-    client(); 
-    client(std::string _name); 
-    void request_car_repair(car& my_car, auto_repair_shop& shop, ordinary_worker& my_ord, master& my_master); 
+    Client(); 
+    Client(std::string _name); 
+    void request_car_repair(Car& my_car, Auto_repair_shop& shop, Ordinary_worker& my_ord, Master& my_master); 
 };

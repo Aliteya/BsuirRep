@@ -99,7 +99,7 @@ std::ostream& operator<<(std::ostream& os, const real_matrix& rm) {
     return os;
 }
 /*!
-\brief Helper method for checking if a matrix is square
+    \brief Helper method for checking if a matrix is square
     \return True if yes, False if no
 */
 bool real_matrix::quad_check() {
