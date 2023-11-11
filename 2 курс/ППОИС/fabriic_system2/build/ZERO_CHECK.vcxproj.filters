@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\fabriic_system2\build\CMakeFiles\37734b6932ac4be59ab5191623415414\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CD0C641A-59F9-3553-B1C8-4C3AF70DDD25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

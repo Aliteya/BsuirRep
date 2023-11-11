@@ -1,0 +1,10 @@
+^D:\FABRIIC_SYSTEM2\BUILD\CMAKEFILES\37734B6932AC4BE59AB5191623415414\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/fabriic_system2 -BD:/fabriic_system2/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/fabriic_system2/build/fabriic_system2.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
