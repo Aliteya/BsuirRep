@@ -1,0 +1,31 @@
+lib_component_ui_menu_wise_agent = [*
+ui_menu_wise_agent  <- ui_user_command_class_atom; ui_user_command_class_view_kb; ui_one_argument_command_class;;
+
+ui_menu_wise_agent
+=> nrel_main_idtf: 
+	[Этот граф обязательно станет мудрее...]
+	(* <- lang_ru;; *);
+=> nrel_idtf: 
+	[Запрос на мудрение графа]
+	(* <- lang_ru;; *);;
+
+ui_menu_wise_agent
+=> nrel_main_idtf: 
+	[This graph will become wiser...]
+	(* <- lang_en;; *);
+=> nrel_idtf: 
+	[Request for making graph wise]
+	(* <- lang_en;; *);;
+
+ui_menu_wise_agent  => ui_nrel_command_template:
+	[*
+		question_become_wiser _-> ._question_become_wiser_instance
+			(*
+				_-> ui_arg_1;;
+			*);;
+		._question_become_wiser_instance _<- question;;
+	*];;
+
+ui_menu_wise_agent  => ui_nrel_command_lang_template: [Заставляем $ui_arg_1 мудреть?] (* <- lang_ru;; *);;
+ui_menu_wise_agent  => ui_nrel_command_lang_template: [Making $ui_arg_1 be wiser?] (* <- lang_en;; *);;
+*];;
