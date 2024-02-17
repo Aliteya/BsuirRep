@@ -1,5 +1,5 @@
 class Human:
-    def __init__(self, name="Aliteya", age=17):
+    def __init__(self, name="Aliteya", age=21):
         self.name = name
         self.age = age
 
