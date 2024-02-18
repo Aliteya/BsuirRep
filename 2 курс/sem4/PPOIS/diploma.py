@@ -6,12 +6,12 @@ class Human:
 from random import choice 
 
 class Teacher(Human):
-    def __init__(self, name, age, experience=5, degree="assistant"): 
+    def __init__(self, name="Onizuka", age=27, experience=5, degree="assistant"): 
         super().__init__(name, age)
         self.experience = experience
         self.degree = degree
 
-    def asking() -> str:
+    def choose_question(self) -> str:
         vocab: list = [ "what is my name?", "what do you know about temporal relations?",
                         "why aren't you a fan yet?", "The universe is infinite?",
                         "when will I become happy?", "Are my eyes glued to you again?",
@@ -52,11 +52,19 @@ class Student(Human):
             return "Yes, I try to correct"
            
     def conducting_defense_rehearsals():
-        pass
+        print("спасите")
     
-    def answering(que1: str, que2: str, que3: str):
-
-        pass
+    def answering(self, que1: str, que2: str, que3: str) -> int:
+        right_count: int = 0
+        print(que1)
+        print(que2)
+        print(que3)
+        for _ in range(3):
+            ans: bool = choice([True, False], weight=[20, 10])
+            print(ans)
+            if ans == True:
+                right_count += 1
+        return right_count
     
 class Supervisor(Teacher):  
     def __init__(self, name, age, experience, degree, students=None):
@@ -75,19 +83,31 @@ class Comission():
         self.teacher3 = teacher3
 
     def commission_asking(self) -> tuple:
-        que1: str = self.teacher1.asking()
-        que2: str = self.teacher2.asking()
-        que3: str = self.teacher3.asking()
+        que1: str = self.teacher1.choose_question()
+        que2: str = self.teacher2.choose_question()
+        que3: str = self.teacher3.choose_question()
         return que1, que2, que3
 
-    def certification_grade():
-        pass
-    pass
+    def certification_grade(self, right_count: int):
+        match right_count:
+            case 3:
+                return choice([9,10])
+            case 2:
+                return choice([7,8])
+            case 1:
+                return choice([5, 6])
+            case 0:
+                return 4
 
 
 
 def main():
     dip1 = Diploma()
     bob = Student("bob", 24, dip1) 
-    print(bob.preparing_presentation_report())
+    t1 = Teacher("t1", 34)
+    t2 = Teacher("t2", 34)
+    t3 = Teacher("t3", 34)
+    c1 = Comission(t1,t2,t3)
+    q1, q2, q3 = c1.commission_asking()
+
 main()
