@@ -1,18 +1,18 @@
+from random import choice 
+
 class Human:
     def __init__(self, name="Aliteya", age=21):
         self.name = name
         self.age = age
 
-from random import choice 
-
-class Teacher(Human):
+class Teacher(Human):  
     def __init__(self, name="Onizuka", age=27, experience=5, degree="assistant"): 
         super().__init__(name, age)
         self.experience = experience
         self.degree = degree
 
     def choose_question(self) -> str:
-        vocab: list = [ "what is my name?", "what do you know about temporal relations?",
+        vocab: list = [ "say my name", "what do you know about temporal relations?",
                         "why aren't you a fan yet?", "The universe is infinite?",
                         "when will I become happy?", "Are my eyes glued to you again?",
                         "My Love Mine All Mine?", "where is my mind?", "and listened to the Pacific Ocean and saw cities?"]
@@ -25,14 +25,27 @@ class Diploma():
         self.count_sources = count_sources
         self.checked = False
 
+    def set_more_pages(self) -> int:
+        self.pages += 45
+        return self.pages
+    
+    def set_more_sources(self) -> int:
+        self.count_sources += 5
+        return self.count_sources
+    
+    def get_info(self):
+        print(self.title, self.pages, self.count_sources, self.checked)
+
 class Presentation():
     def __init__(self, pres_title="ostis ecosystem", author="Aliteya", content="many slides about the ecosystem"):
         self.pres_title = pres_title
         self.author = author
         self.content = content
 
+    def list_pages(self):
+        print("next page")
+
 class Student(Human):
-    
     def __init__(self, name, age, diploma=None):
         super().__init__(name, age)
         self.diploma = diploma
@@ -47,12 +60,14 @@ class Student(Human):
         if self.diploma.checked == True:
             return "Okey, my diploma is checked"
         else:
-            self.diploma.pages += 45
-            self.count_sources += 3
+            self.diploma.set_more_pages()
+            self.diploma.set_more_sources()
             return "Yes, I try to correct"
            
-    def conducting_defense_rehearsals():
-        print("спасите")
+    def conducting_defense_rehearsals(self, pres1: Presentation)-> str:
+        print(pres1.pres_title, pres1.content, sep="/n")
+        pres1.list_pages()
+        return "That's all"
     
     def answering(self, que1: str, que2: str, que3: str) -> int:
         right_count: int = 0
@@ -76,6 +91,10 @@ class Supervisor(Teacher):
             if student.diploma.checked != True and student.diploma.pages > 50 and student.diploma.count_sources > 5:
                 student.diploma.checked = True
 
+    def print_student_info(self):
+        for student in self.students:
+            print(f"Student: {student.name}, Diploma Pages: {student.diploma.pages}, Diploma Sources: {student.diploma.count_sources}, Diploma Checked: {student.diploma.checked}")
+
 class Comission():
     def __init__(self, teacher1=None, teacher2=None, teacher3=None):
         self.teacher1 = teacher1
@@ -88,7 +107,7 @@ class Comission():
         que3: str = self.teacher3.choose_question()
         return que1, que2, que3
 
-    def certification_grade(self, right_count: int):
+    def certification_grade(self, right_count: int) -> int:
         match right_count:
             case 3:
                 return choice([9,10])
@@ -99,11 +118,22 @@ class Comission():
             case 0:
                 return 4
 
-
-
 def main():
-    dip1 = Diploma()
+    dip1 = Diploma("hi", 45, 4)
     bob = Student("bob", 24, dip1) 
+    su = Supervisor("super",35, 5, "docent", [bob])
+    su.checking()
+    su.print_student_info()
+    print(bob.reviewing_correcting_report())
+     
+    dip1.get_info()
+    su.checking()
+    su.print_student_info()
+    print(bob.reviewing_correcting_report())
+    dip1.get_info
+    su.checking()
+    print(bob.reviewing_correcting_report())
+    dip1.get_info()
     t1 = Teacher("t1", 34)
     t2 = Teacher("t2", 34)
     t3 = Teacher("t3", 34)
