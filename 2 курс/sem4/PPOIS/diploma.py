@@ -1,15 +1,30 @@
 from random import choice 
+import pickle
+
 
 class Human:
     def __init__(self, name="Aliteya", age=21):
-        self.name = name
-        self.age = age
+        self._name = name
+        self._age = age
+
+    def get_name(self):
+        return self._name
+    
+    def get_age(self):
+        return self._age
+
 
 class Teacher(Human):  
     def __init__(self, name="Onizuka", age=27, experience=5, degree="assistant"): 
         super().__init__(name, age)
-        self.experience = experience
-        self.degree = degree
+        self._experience = experience
+        self._degree = degree
+
+    def get_experience(self):
+        return self._experience
+    
+    def get_degree(self):
+        return self._degree
 
     def choose_question(self) -> str:
         vocab: list = [ "say my name", "what do you know about temporal relations?",
@@ -20,27 +35,51 @@ class Teacher(Human):
 
 class Diploma():
     def __init__(self, title="Hello world", pages=30, count_sources=1):
-        self.title = title
-        self.pages = pages
-        self.count_sources = count_sources
-        self.checked = False
+        self._title = title
+        self._pages = pages
+        self._count_sources = count_sources
+        self._checked = False
+
+    def get_title(self):
+        return self._title
+    
+    def get_pages(self):
+        return self._pages
+    
+    def get_count_sources(self):
+        return self._count_sources
+    
+    def get_checked(self):
+        return self._checked
+
+    def set_checked_true(self):
+        self._checked = True
 
     def set_more_pages(self) -> int:
-        self.pages += 45
-        return self.pages
+        self._pages += 45
+        return self._pages
     
     def set_more_sources(self) -> int:
-        self.count_sources += 5
-        return self.count_sources
+        self._count_sources += 5
+        return self._count_sources
     
     def get_info(self):
-        print(self.title, self.pages, self.count_sources, self.checked)
+        print(self._title, self._pages, self._count_sources, self._checked)
 
 class Presentation():
     def __init__(self, pres_title="ostis ecosystem", author="Aliteya", content="many slides about the ecosystem"):
-        self.pres_title = pres_title
-        self.author = author
-        self.content = content
+        self._pres_title = pres_title
+        self._author = author
+        self._content = content
+
+    def get_pres_title(self):
+        return self._pres_title
+    
+    def get_author(self):
+        return self._author
+    
+    def get_content(self):
+        return self._content
 
     def list_pages(self):
         print("next page")
@@ -51,13 +90,13 @@ class Student(Human):
         self.diploma = diploma
     
     def preparing_presentation_report(self) -> Presentation:
-        pres_title: str = f"genuis title for presentation {self.name}'s "
-        author: str = self.name
-        content: str = f"some slides about {self.diploma.title}... Diploma is {self.diploma.pages} pages long and has {self.diploma.count_sources} sources"
+        pres_title: str = f"genuis title for presentation {self.get_name()}'s "
+        author: str = self.get_name()
+        content: str = f"some slides about {self.diploma.get_title()}... Diploma is {self.diploma.get_pages()} pages long and has {self.diploma.get_count_sources()} sources"
         return Presentation(pres_title, author, content)
 
     def reviewing_correcting_report(self) -> str:
-        if self.diploma.checked == True:
+        if self.diploma.get_checked() == True:
             return "Okey, my diploma is checked"
         else:
             self.diploma.set_more_pages()
@@ -65,7 +104,7 @@ class Student(Human):
             return "Yes, I try to correct"
            
     def conducting_defense_rehearsals(self, pres1: Presentation)-> str:
-        print(pres1.pres_title, pres1.content, sep="/n")
+        print(pres1.get_pres_title(), pres1.get_content(), sep="/n")
         pres1.list_pages()
         return "That's all"
     
@@ -88,12 +127,12 @@ class Supervisor(Teacher):
 
     def checking(self):
         for student in self.students:
-            if student.diploma.checked != True and student.diploma.pages > 50 and student.diploma.count_sources > 5:
-                student.diploma.checked = True
+            if student.diploma.get_checked() != True and student.diploma.get_pages() > 50 and student.diploma.get_count_sources() > 5:
+                student.diploma.set_checked_true()
 
     def print_student_info(self):
         for student in self.students:
-            print(f"Student: {student.name}, Diploma Pages: {student.diploma.pages}, Diploma Sources: {student.diploma.count_sources}, Diploma Checked: {student.diploma.checked}")
+            print(f"Student: {student.get_name()}, Diploma Pages: {student.diploma.get_pages()}, Diploma Sources: {student.diploma.get_count_sources()}, Diploma Checked: {student.diploma.get_checked()}")
 
 class Comission():
     def __init__(self, teacher1=None, teacher2=None, teacher3=None):
@@ -140,4 +179,5 @@ def main():
     c1 = Comission(t1,t2,t3)
     q1, q2, q3 = c1.commission_asking()
 
-main()
+if __name__ == '__main__':
+    main()
