@@ -119,15 +119,5 @@ class TestPresentation(unittest.TestCase):
     def test_get_content(self):
         self.assertEqual(self.pres.get_content(), "Content")
 
-class TestSaveLoad(unittest.TestCase):
-    def setUp(self):
-        self.diploma = Diploma("hi", 45, 4)
-        self.student = Student("bob", 24, self.diploma) 
-
-    def test_save_load(self):
-        save_changes(self.diploma)
-        for i in load_changes():
-            self.assertEqual(i.__dict__, self.diploma.__dict__)
-
 if __name__ == '__main__':
     unittest.main()

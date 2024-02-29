@@ -7,6 +7,11 @@ class Student(Human):
         super().__init__(name, age)
         self.diploma = diploma
     
+
+
+    def student_info(self):
+        print(f"Hello my name {self.get_name()}, my diplom named {self.diploma.get_title()}")
+
     def preparing_presentation_report(self) -> Presentation:
         pres_title: str = f"genuis title for presentation {self.get_name()}'s "
         author: str = self.get_name()

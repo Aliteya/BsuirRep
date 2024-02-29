@@ -7,6 +7,12 @@ class Teacher(Human):
         self._experience = experience
         self._degree = degree
 
+    def get_name(self):
+        return super().get_name()
+    
+    def get_age(self):
+        return super().get_age()
+
     def get_experience(self):
         return self._experience
     

@@ -6,6 +6,9 @@ class Comission():
         self.teacher2 = teacher2
         self.teacher3 = teacher3
 
+    def com_hello(self):
+        print(f"Welcome, comission is {self.teacher1.get_name()}, {self.teacher2.get_name()}, {self.teacher3.get_name()}")
+
     def commission_asking(self) -> tuple:
         que1: str = self.teacher1.choose_question()
         que2: str = self.teacher2.choose_question()

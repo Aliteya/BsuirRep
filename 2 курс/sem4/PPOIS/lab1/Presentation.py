@@ -12,6 +12,9 @@ class Presentation():
     
     def get_content(self):
         return self._content
+    
+    def present_info(self):
+        print(f'name {self.get_pres_title()}, author {self.get_author()}, content {self.get_content()}')
 
     def list_pages(self):
         print("next page")

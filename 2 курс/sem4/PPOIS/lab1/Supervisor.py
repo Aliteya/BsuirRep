@@ -5,6 +5,9 @@ class Supervisor(Teacher):
         super().__init__(name, age, experience, degree)
         self.students = students if students is not None else []
 
+    def supervis_info(self):
+        print(f'name {self.get_name()}, age {self.get_age()}, expirience {self.get_experience()}, degree {self.get_degree()}')
+
     def checking(self):
         for student in self.students:
             if student.diploma != None and student.diploma.get_checked() != True and student.diploma.get_pages() > 50 and student.diploma.get_count_sources() > 5:

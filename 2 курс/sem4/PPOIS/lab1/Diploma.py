@@ -29,4 +29,4 @@ class Diploma():
         return self._count_sources
     
     def get_info(self):
-        print(self._title, self._pages, self._count_sources, self._checked)
+        print(f'Title {self._title}, pages {self._pages}, sources {self._count_sources}, ckecked {self._checked}')
