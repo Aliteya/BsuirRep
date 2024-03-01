@@ -9,7 +9,7 @@ class Student(Human):
     
 
 
-    def student_info(self):
+    def student_info(self)->str:
         print(f"Hello my name {self.get_name()}, my diplom named {self.diploma.get_title()}")
 
     def preparing_presentation_report(self) -> Presentation:

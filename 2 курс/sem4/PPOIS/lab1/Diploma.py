@@ -5,16 +5,16 @@ class Diploma():
         self._count_sources = count_sources
         self._checked = False
 
-    def get_title(self):
+    def get_title(self)->str:
         return self._title
     
-    def get_pages(self):
+    def get_pages(self)->int:
         return self._pages
     
-    def get_count_sources(self):
+    def get_count_sources(self)-> int:
         return self._count_sources
     
-    def get_checked(self):
+    def get_checked(self)->bool:
         return self._checked
     
     def set_checked_true(self):

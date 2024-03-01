@@ -3,8 +3,8 @@ class Human:
         self._name = name
         self._age = age
 
-    def get_name(self):
+    def get_name(self) -> str:
         return self._name
     
-    def get_age(self):
+    def get_age(self) -> int:
         return self._age

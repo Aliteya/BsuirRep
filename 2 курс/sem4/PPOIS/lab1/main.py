@@ -25,13 +25,12 @@ def main():
         0 - Exit
         1 - Students info
         2 - Supervisor info
-        3 - Supervisor's students info
-        4 - Diploma info
-        5 - Supervisor check diploma
-        6 - Student review report
-        7 - Student make presentation
-        8 - Protection diploma
-        9 - Save
+        3 - Diploma info
+        4 - Supervisor check diploma
+        5 - Student review report
+        6 - Student make presentation
+        7 - Protection diploma
+        8 - Save
         """)
         i = int(input("Choose operation: "))
         match i:
@@ -39,29 +38,26 @@ def main():
                 print("Exiting...")
                 break
             case 1:
-                su.print_student_info()
+                bob.student_info()
             case 2:
                 su.supervis_info()
             case 3:
-                print("Supervisor's students info:")
-                su.print_student_info()
-            case 4:
                 print("Diploma info:")
                 dip1.get_info()
-            case 5:
+            case 4:
                 su.checking()
-            case 6:
+            case 5:
                 print("Student review report:")
                 print(bob.reviewing_correcting_report())
-            case 7:
+            case 6:
                 print("Student make presentation:")
                 pres = bob.preparing_presentation_report()
                 pres.present_info()
-            case 8:
+            case 7:
                 print("Protection diploma:")
                 dip1.set_checked_true()
                 print("Grade ", c1.certification_grade(bob.answering(*c1.commission_asking())), sep=" ")
-            case 9:
+            case 8:
                 print("Saving data...")
                 save_changes(dip1, bob, su, t1, t2, t3, c1)
             case _: 

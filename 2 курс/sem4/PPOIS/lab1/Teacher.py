@@ -13,10 +13,10 @@ class Teacher(Human):
     def get_age(self):
         return super().get_age()
 
-    def get_experience(self):
+    def get_experience(self)->int:
         return self._experience
     
-    def get_degree(self):
+    def get_degree(self)->str:
         return self._degree
 
     def choose_question(self) -> str:
