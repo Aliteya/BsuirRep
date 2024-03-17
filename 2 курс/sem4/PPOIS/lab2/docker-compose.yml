@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  ppoisdb:
+    image: "postgres:latest"
+    container_name: PPOIS-DB
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "ppois2base"  
+      POSTGRES_PASSWORD: "ppois2base123$"
+      POSTGRES_USER: "Aliteya"
+    volumes:
+      - 'ppois-db-data:/var/opt/mssql'
+
+ 
+volumes:
+  ppois-db-data:
+    driver: local
