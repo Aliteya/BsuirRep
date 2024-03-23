@@ -16,6 +16,7 @@ class Interface():
                 self.delete_window = None
                 
                 self.model_base = model_base
+                self.page_number = 1
 
                 search_button = tk.Button(text="Поиск", command=self.open_search_gui)
                 search_button.grid(row=0, column = 0, pady=20)
@@ -54,24 +55,48 @@ class Interface():
                 
                 new_entry_frame.grid(row=3, column=0, columnspan=7)
 
+                self.load_page()
+                
+                prev_button = tk.Button(self.window, text="Prev", command=self.prev_page)
+                prev_button.grid(row=2, column=0, pady=10)
 
-                self._view_loading()
+                next_button = tk.Button(self.window, text="Next", command=self.next_page)
+                next_button.grid(row=2, column=1, pady=10)
+                # self._view_loading()
 
                 self.window.mainloop()
                 
-                
-        def _view_loading(self):
-                        for i in self.model_base.loading():
-                                self.table.insert("", tk.END, values=i)
+        def load_page(self):
+                self._view_loading((self.page_number - 1) * 5, 5)
+
+        def prev_page(self):
+                if self.page_number > 1:
+                        self.page_number -= 1
+                        self.load_page()
+
+        def next_page(self):
+                self.page_number += 1
+                self.load_page()
+
+        def _view_loading(self, offset=0, limit=0):
+                for item in self.table.get_children():
+                        self.table.delete(item)
+                for i in self.model_base.loading(offset, limit):
+                        self.table.insert("", tk.END, values=i)
 
           
         def _gui_new_entries(self):
-                return self.table.insert("", tk.END, values=self.model_base.new_entry((self.tournament_name.get(), self.date.get(), self.sport_name.get(), self.winners_name.get(), int(self.prize_money.get()))))
+                new_entry_data = (self.tournament_name.get(), self.date.get(), self.sport_name.get(), self.winners_name.get(), int(self.prize_money.get()))
+                self.model_base.new_entry(new_entry_data)
+                first_record_index = (self.page_number - 1) * 5
+                if first_record_index <= len(self.model_base.loading()) - 1 < first_record_index + 5:
+                        self._view_loading(first_record_index, 5)
+
+                # return self.table.insert("", tk.END, values=self.model_base.new_entry((self.tournament_name.get(), self.date.get(), self.sport_name.get(), self.winners_name.get(), int(self.prize_money.get()))))
 
 
         def open_search_gui(self):
                 self.search_window = SearchGUI(self.model_base)
                
         def open_delete_gui(self):
-                pass
-               # self.delete_window = DeleteGUI(tk.Toplevel())
+               self.delete_window = DeleteGUI(self.model_base, self)

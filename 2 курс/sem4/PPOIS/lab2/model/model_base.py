@@ -38,8 +38,11 @@ class ModelBase:
         self._cursor.execute(tournament_tb)
         self._connection.commit()
 
-    def loading(self):
-        request_to_read_data = "SELECT * FROM TOURNAMENTS"
+    def loading(self, offset=0, limit=None):
+        if limit is None:
+            request_to_read_data = "SELECT * FROM TOURNAMENTS"
+        else:
+            request_to_read_data = f"SELECT * FROM TOURNAMENTS LIMIT {limit} OFFSET {offset}"
 
         self._cursor.execute(request_to_read_data)
         data = self._cursor.fetchall()
@@ -86,7 +89,21 @@ class ModelBase:
         self._cursor.execute(request_to_search)
         data = self._cursor.fetchall()
         return data
-        
+
+    def delete(self, num:int, searching: str, max_lim=0, min_lim=0):
+        request_to_delete = None
+        match num:
+            case 1:
+                request_to_delete = f"DELETE FROM tournaments WHERE tournament_name = '{searching}';"
+            case 2: 
+                request_to_delete = f"DELETE FROM tournaments WHERE sport_name = '{searching}';"
+            case 3:
+                request_to_delete = f"DELETE FROM tournaments WHERE earning > {min_lim} AND earning < {max_lim}; "
+        if request_to_delete:
+            self._cursor.execute(request_to_delete)
+            num_deleted = self._cursor.rowcount
+            self._connection.commit()
+            return num_deleted
 
     def close_connection(self):
         self._cursor.close()
