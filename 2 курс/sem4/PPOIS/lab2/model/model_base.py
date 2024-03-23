@@ -1,6 +1,6 @@
 from psycopg2 import *
 import psycopg2 as ps
-from view.view_interf import *
+# from view.view_interf import *
 
 class ModelBase:
     def __init__(self, host, port, database, user, password):
@@ -60,8 +60,33 @@ class ModelBase:
 
         self._cursor.execute(request_to_read_data)
         data = self._cursor.fetchall()
-        print(data, type(data)) 
         return data[-1]
+
+    def help_search_by_tournament(self):
+        dist_request = "SELECT DISTINCT tournament_name FROM tournaments"
+        self._cursor.execute(dist_request)
+        data = self._cursor.fetchall()
+        return data
+    
+    def help_search_by_sport(self):
+        dist_request = "SELECT DISTINCT sport_name FROM tournaments"
+        self._cursor.execute(dist_request)
+        data = self._cursor.fetchall()
+        return data
+
+    def search(self, num:int, searching: str, max_lim=0, min_lim=0):
+        request_to_search = "SELECT * FROM tournaments"
+        match num:
+            case 1:
+                request_to_search = f"SELECT * FROM tournaments WHERE tournament_name = '{searching}';"
+            case 2: 
+                request_to_search = f"SELECT * FROM tournaments WHERE sport_name = '{searching}';"
+            case 3:
+                request_to_search = f"SELECT * FROM tournaments WHERE earning > {min_lim} AND earning < {max_lim}; "
+        self._cursor.execute(request_to_search)
+        data = self._cursor.fetchall()
+        return data
+        
 
     def close_connection(self):
         self._cursor.close()

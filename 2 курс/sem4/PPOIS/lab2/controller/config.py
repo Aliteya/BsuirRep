@@ -16,8 +16,8 @@ def load_config():
     base = ModelBase(host, port, database, user, password)
     base.create_table()
     
-    gui= Interface()
-    gui.visual_start()
-    base2 = ControllerBase(base, gui)
-    base2.insert_entry()
+    gui = Interface(base)
+    # base2 = ControllerBase(base, gui)
+    
+    # base2.insert_entry()
     base.close_connection()

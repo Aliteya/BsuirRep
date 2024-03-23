@@ -8,6 +8,10 @@ class ControllerBase:
         self.gui.view_loading(self.model)
 
     def insert_entry(self):
-        self.gui.gui_new_entries(self.model)
+        self.gui.visual_start()
+
+    def search(self):
+        self.gui.search_delete_gui(self.model)
+        
         
         
