@@ -42,7 +42,7 @@ class ModelBase:
         if limit is None:
             request_to_read_data = "SELECT * FROM TOURNAMENTS"
         else:
-            request_to_read_data = f"SELECT * FROM TOURNAMENTS LIMIT {limit} OFFSET {offset}"
+            request_to_read_data = f"SELECT * FROM TOURNAMENTS OFFSET {offset} LIMIT {limit}"
 
         self._cursor.execute(request_to_read_data)
         data = self._cursor.fetchall()
@@ -77,7 +77,7 @@ class ModelBase:
         data = self._cursor.fetchall()
         return data
 
-    def search(self, num:int, searching: str, max_lim=0, min_lim=0):
+    def search(self, num:int, searching="", max_lim=0, min_lim=0):
         request_to_search = "SELECT * FROM tournaments"
         match num:
             case 1:
@@ -90,7 +90,7 @@ class ModelBase:
         data = self._cursor.fetchall()
         return data
 
-    def delete(self, num:int, searching: str, max_lim=0, min_lim=0):
+    def delete(self, num:int, searching="", max_lim=0, min_lim=0):
         request_to_delete = None
         match num:
             case 1:

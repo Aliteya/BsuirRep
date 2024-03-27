@@ -1,0 +1,6 @@
+Babel==2.14.0
+pip==22.3.1
+psycopg2==2.9.9
+python-dotenv==1.0.1
+setuptools==65.5.0
+tkcalendar==1.6.1

@@ -10,18 +10,23 @@ class Interface():
         def __init__(self, model_base:ModelBase):
                 self.window = Tk()
                 self.window.title("start window")
-                self.window.geometry("800x600")           
+                self.window.geometry()           
 
                 self.search_window = None
                 self.delete_window = None
                 
                 self.model_base = model_base
+
                 self.page_number = 1
+                self.list_on_page = 5
 
                 search_button = tk.Button(text="Поиск", command=self.open_search_gui)
                 search_button.grid(row=0, column = 0, pady=20)
                 delete_button = tk.Button(text="Удаление", command=self.open_delete_gui)
                 delete_button.grid(row= 0, column = 1, pady=20)  
+
+                enabled_button = ttk.Button(text="Включить вид дерева", command=self._tree_view)
+                enabled_button.grid(row=0, column=2, pady=20)
                 
                 main_frame = ttk.Labelframe(text="tournaments", borderwidth=1, relief=SOLID, padding=[4, 8])
                 
@@ -33,50 +38,103 @@ class Interface():
                 self.table. heading(3, text="ФИО победителя")
                 self.table.heading(4, text="Размер призовых турнира") 
                 self.table.heading(5, text="Заработок победителя")
-                self.table.grid(row=2, column=0, columnspan=6, pady=20)
+                self.table.grid(row=2, column=0, columnspan=4, pady=20)
                 
-                main_frame.grid(row=1 , column=0, columnspan=7)
+                main_frame.grid(row=1 , column=0, columnspan=6)
                 
-                new_entry_frame = ttk.Labelframe(text="add new entry")
+                new_entry_frame = ttk.Labelframe(text="add new entry", borderwidth=1, relief=SOLID, padding=[4, 8])
                 
                 self.tournament_name = tk.Entry(new_entry_frame)
-                self.tournament_name.grid(row = 4, column = 0,  pady = 20)
+                self.tournament_name.grid(row = 3, column = 0,  pady = 20)
                 self.date =  DateEntry(new_entry_frame)
-                self.date.grid(row = 4, column = 1, pady = 20)
+                self.date.grid(row = 3, column = 1, pady = 20)
                 self.sport_name = tk.Entry(new_entry_frame)
-                self.sport_name.grid(row = 4, column = 2,  pady = 20)
+                self.sport_name.grid(row = 3, column = 2,  pady = 20)
                 self.winners_name = tk.Entry(new_entry_frame)
-                self.winners_name.grid(row = 4, column = 3,  pady = 20)
+                self.winners_name.grid(row = 3, column = 3,  pady = 20)
                 self.prize_money = tk.Entry(new_entry_frame)
-                self.prize_money.grid(row = 4, column = 4,  pady = 20)
+                self.prize_money.grid(row = 3, column = 4,  pady = 20)
               
                 new_entry_button = tk.Button(new_entry_frame, text="Ввод",  command=self._gui_new_entries)
-                new_entry_button.grid(row = 5, column = 3, pady = 20)
+                new_entry_button.grid(row = 4, column = 3, pady = 20)
                 
-                new_entry_frame.grid(row=3, column=0, columnspan=7)
+                new_entry_frame.grid(row=3, column=3, columnspan=7)
 
-                self.load_page()
+                self.load_page(self.list_on_page)
                 
                 prev_button = tk.Button(self.window, text="Prev", command=self.prev_page)
-                prev_button.grid(row=2, column=0, pady=10)
+                prev_button.grid(row=3, column=0, pady=10)
 
                 next_button = tk.Button(self.window, text="Next", command=self.next_page)
-                next_button.grid(row=2, column=1, pady=10)
-                # self._view_loading()
+                next_button.grid(row=3, column=1, pady=10)
+                
+
+                page_val = [5, 10, 15]
+                self.page_var = StringVar(value=page_val[0])
+                page_combo = ttk.Combobox(textvariable=self.page_var, values=page_val)
+                page_combo.grid(row= 3, column=2)
+                page_combo.bind("<<ComboboxSelected>>", self.selected)
 
                 self.window.mainloop()
-                
-        def load_page(self):
-                self._view_loading((self.page_number - 1) * 5, 5)
+        
+        def selected(self, event):
+                self.list_on_page = int(self.page_var.get())
+                self.load_page(self.list_on_page)
+
+        def _tree_view(self):
+                tree_window = tk.Toplevel()
+                tree_window.title("TreeView")
+
+                canvas = tk.Canvas(tree_window)
+                canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+                scrollbar = ttk.Scrollbar(tree_window, orient=tk.VERTICAL, command=canvas.yview)
+                scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+                canvas.configure(yscrollcommand=scrollbar.set)
+
+                frame = ttk.Frame(canvas)
+                canvas.create_window((0, 0), window=frame, anchor=tk.NW)
+
+                i, j = 0, 0
+                for record in self.model_base.loading():
+                        record_frame = ttk.Labelframe(frame, text=f"Tournament: {record[0]}")
+                        record_frame.grid(row=i, column=j, padx=10, pady=5)
+
+                        tree = ttk.Treeview(record_frame, columns=("Field", "Value"), show="tree")
+                        tree.grid(row=i, column=j)
+
+                        tree.insert("", tk.END, text="Tournament Name", values=(record[0]))
+                        tree.insert("", tk.END, text="Date", values=(record[1]))
+                        tree.insert("", tk.END, text="Sport Name", values=(record[2]))
+                        tree.insert("", tk.END, text="Winner's Name", values=(record[3]))
+                        tree.insert("", tk.END, text="Prize Money", values=(record[4]))
+                        tree.insert("", tk.END, text="Earning", values=(record[5]))
+
+                        i += 1
+                        if i % 10 == 0:
+                                j += 1
+                                i = 0
+
+                def configure(event):
+                        canvas.configure(scrollregion=canvas.bbox("all"))
+
+                frame.bind("<Configure>", configure)
+
+                tree_window.mainloop()
+
+
+        def load_page(self, limit):
+                self._view_loading((self.page_number - 1) * limit ,limit)
 
         def prev_page(self):
                 if self.page_number > 1:
                         self.page_number -= 1
-                        self.load_page()
+                        self.load_page(self.list_on_page)
 
         def next_page(self):
                 self.page_number += 1
-                self.load_page()
+                self.load_page(self.list_on_page)
 
         def _view_loading(self, offset=0, limit=0):
                 for item in self.table.get_children():
@@ -88,9 +146,9 @@ class Interface():
         def _gui_new_entries(self):
                 new_entry_data = (self.tournament_name.get(), self.date.get(), self.sport_name.get(), self.winners_name.get(), int(self.prize_money.get()))
                 self.model_base.new_entry(new_entry_data)
-                first_record_index = (self.page_number - 1) * 5
-                if first_record_index <= len(self.model_base.loading()) - 1 < first_record_index + 5:
-                        self._view_loading(first_record_index, 5)
+                first_record_index = (self.page_number - 1) * self.list_on_page 
+                if first_record_index <= len(self.model_base.loading()) - 1 < first_record_index + self.list_on_page:
+                        self._view_loading(first_record_index, self.list_on_page)
 
                 # return self.table.insert("", tk.END, values=self.model_base.new_entry((self.tournament_name.get(), self.date.get(), self.sport_name.get(), self.winners_name.get(), int(self.prize_money.get()))))
 

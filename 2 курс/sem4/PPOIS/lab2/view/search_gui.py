@@ -6,7 +6,7 @@ class SearchGUI():
         def __init__(self, model_base):
                 self.window1 = tk.Toplevel()
                 self.window1.title("search")
-                self.window1.geometry("400x250")
+                self.window1.geometry()
 
                 self.model_base = model_base
 
@@ -25,12 +25,14 @@ class SearchGUI():
                 but1.grid(row=1, column=0)
                 but2 = ttk.Radiobutton(self.window1,text="По виду спорта", value=2, variable=self.check, command=self.__create_combo2)
                 but2.grid(row=1, column=1)
-                but3 = ttk.Radiobutton(self.window1,text="По величине выигрыша", value=3, variable=self.check)
+                but3 = ttk.Radiobutton(self.window1,text="По величине выигрыша", value=3, variable=self.check, command=self.__combo_func3)
                 but3.grid(row=1, column=2)
+                
                 self.combobox=None
-
+                self.min_money=IntVar(value=100)
+                self.max_money=IntVar(value=100)
                 but4 = tk.Button(self.window1,text="Искать", command=self.search_command)
-                but4.grid(row=3,column=0, pady=5)
+                but4.grid(row=4,column=0, pady=5)
 
                 self._view_loading()
                 self.window1.mainloop()
@@ -67,8 +69,20 @@ class SearchGUI():
                         val.append(*i)
                 return val
         
+        def __combo_func3(self):
+                ttk.Label(self.window1, textvariable=self.min_money).grid(row=2, column=3)
+                min_money_scale = ttk.Scale(self.window1, orient=HORIZONTAL, length=200, from_=10, to=700, variable=self.min_money)
+                min_money_scale.grid(row=2, column=2)
+                
+                ttk.Label(self.window1, textvariable=self.max_money).grid(row=3, column=3)
+                max_money_scale = ttk.Scale(self.window1, orient=HORIZONTAL, length=200, from_=10, to=700, variable=self.max_money)
+                max_money_scale.grid(row=3, column=2)
+
         def search_command(self):
-                new_model = self.model_base.search(num=self.check.get(), searching=self.combobox.get())
+                if self.combobox is not None:
+                        new_model = self.model_base.search(num=self.check.get(), searching=self.combobox.get())
+                else:
+                        new_model = self.model_base.search(num=self.check.get(), min_lim=self.min_money.get(), max_lim=self.max_money.get())
                 self._view_loading(new_model)
             
                 
