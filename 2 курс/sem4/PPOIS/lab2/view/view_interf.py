@@ -1,10 +1,12 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+import tkinter.messagebox as mb
 from tkcalendar import DateEntry
 from view.search_gui import SearchGUI
 from view.delete_gui import DeleteGUI
 from model.model_base import ModelBase
+from model.xml_loader import parser
 
 class Interface():
         def __init__(self, model_base:ModelBase):
@@ -16,17 +18,28 @@ class Interface():
                 self.delete_window = None
                 
                 self.model_base = model_base
+                self.parser = None
 
                 self.page_number = 1
                 self.list_on_page = 5
 
                 search_button = tk.Button(text="Поиск", command=self.open_search_gui)
                 search_button.grid(row=0, column = 0, pady=20)
+
                 delete_button = tk.Button(text="Удаление", command=self.open_delete_gui)
                 delete_button.grid(row= 0, column = 1, pady=20)  
 
                 enabled_button = ttk.Button(text="Включить вид дерева", command=self._tree_view)
                 enabled_button.grid(row=0, column=2, pady=20)
+
+                load_xml_button = tk.Button(text="Загрузить xml", command=self._parse_from)
+                load_xml_button.grid(row=0, column=3, pady=20)
+
+                save_xml_button = tk.Button(text="Сохранить xml", command=self._save_to)
+                save_xml_button.grid(row=0, column=4, pady=20)
+
+                clean_base_button = tk.Button(text="Очистить", command=self._cleaning)
+                clean_base_button.grid(row=0, column=5, pady=20)
                 
                 main_frame = ttk.Labelframe(text="tournaments", borderwidth=1, relief=SOLID, padding=[4, 8])
                 
@@ -59,9 +72,9 @@ class Interface():
                 new_entry_button.grid(row = 4, column = 3, pady = 20)
                 
                 new_entry_frame.grid(row=3, column=3, columnspan=7)
-
-                self.load_page(self.list_on_page)
                 
+                self.load_page(self.list_on_page)
+
                 prev_button = tk.Button(self.window, text="Prev", command=self.prev_page)
                 prev_button.grid(row=3, column=0, pady=10)
 
@@ -81,6 +94,40 @@ class Interface():
                 self.list_on_page = int(self.page_var.get())
                 self.load_page(self.list_on_page)
 
+        def _cleaning(self):
+                self.model_base.clean_base()
+                self.load_page(self.list_on_page)
+
+
+        def _parse_from(self):
+                window3 = tk.Toplevel()
+                window3.title("Choose file")
+                file_but1 = tk.Button(window3, text="file1", command=lambda: self.__choose_file(1))
+                file_but1.grid(row=0, column=0)
+                file_but2 = tk.Button(window3, text="file2", command=lambda: self.__choose_file(2))
+                file_but2.grid(row=1, column=0)
+                
+
+        def __choose_file(self, file):
+                filename = "xml"+str(file)+"_file.xml"
+                self.parser = parser(filename)
+                data = self.parser.from_xml()
+                for i in data:
+                        self.model_base.new_entry(i)
+                self.load_page(self.list_on_page)
+
+        def _save_to(self):
+                if self.parser is None:
+                        mgs = "Parser is not initialized properly"
+                        mb.showerror("error", mgs)
+                        return
+                data = self.model_base.loading()
+                if data is None:
+                        mgs = "no records"
+                        mb.showerror("error", mgs)
+                else:    
+                        self.parser.to_xml(data)
+        
         def _tree_view(self):
                 tree_window = tk.Toplevel()
                 tree_window.title("TreeView")
@@ -123,6 +170,8 @@ class Interface():
 
                 tree_window.mainloop()
 
+        # def load_base(self):
+                # return self.load_page(self.list_on_page)
 
         def load_page(self, limit):
                 self._view_loading((self.page_number - 1) * limit ,limit)

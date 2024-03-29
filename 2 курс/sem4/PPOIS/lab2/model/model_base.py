@@ -104,6 +104,12 @@ class ModelBase:
             num_deleted = self._cursor.rowcount
             self._connection.commit()
             return num_deleted
+        
+    def clean_base(self):
+        request_clean = "DELETE FROM tournaments"
+        self._cursor.execute(request_clean)
+        self._connection.commit()
+
 
     def close_connection(self):
         self._cursor.close()
