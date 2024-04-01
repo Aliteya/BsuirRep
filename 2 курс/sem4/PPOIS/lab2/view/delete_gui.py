@@ -68,4 +68,6 @@ class DeleteGUI():
                 else:
                         msg = "No records matching the specified criteria were found."
                 mb.showinfo("Информация", msg)
+                self.parent.total_pages = self.parent.calculate_total_pages()
+                self.parent.update_page_label() 
                 self.parent.load_page(self.parent.list_on_page)

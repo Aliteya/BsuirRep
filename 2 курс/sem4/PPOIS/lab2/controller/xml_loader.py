@@ -28,17 +28,6 @@ class parser():
             data.append((tournament_name, date, sport_name, winners_name, prize_money))
         return data
 
-
-    # def from_xml(self):
-    #     data = []
-    #     for tournament in self.root.findall('tournament'):
-    #         tournament_name = tournament.find('tournament_name').text
-    #         date = tournament.find('date').text
-    #         sport_name = tournament.find('sport_name').text
-    #         winners_name = tournament.find('winners_name').text
-    #         prize_money = int(tournament.find('prize_money').text)
-    #         data.append((tournament_name, date, sport_name, winners_name, prize_money))
-    #     return data
     
     def to_xml(self, data):
         self.root = ET.Element("catalog")

@@ -1,23 +1,2 @@
-<catalog>
-    <tournament id="1">
-        <tournament_name>international</tournament_name>
-        <date>2011-11-11</date>
-        <sport_name>dota</sport_name>
-        <winners_name>polina</winners_name>
-        <prize_money>500</prize_money>
-    </tournament>
-        <tournament id="2">
-        <tournament_name>international</tournament_name>
-        <date>2011-11-11</date>
-        <sport_name>dota</sport_name>
-        <winners_name>serega_pirat</winners_name>
-        <prize_money>500</prize_money>
-    </tournament>
-    <tournament id="3">
-    <tournament_name>international</tournament_name>
-    <date>2011-11-11</date>
-    <sport_name>dota</sport_name>
-    <winners_name>aliteya</winners_name>
-    <prize_money>500</prize_money>
-    </tournament>
-</catalog>
+<?xml version='1.0' encoding='utf-8'?>
+<catalog><tournament id="1"><tournament_name>dfsdf</tournament_name><date>2024-03-29</date><sport_name>sdfsdfsd</sport_name><winners_name>sdfsdfds</winners_name><prize_money>100</prize_money></tournament><tournament id="2"><tournament_name>international</tournament_name><date>2011-11-11</date><sport_name>dota</sport_name><winners_name>polina</winners_name><prize_money>500</prize_money></tournament><tournament id="3"><tournament_name>international</tournament_name><date>2011-11-11</date><sport_name>dota</sport_name><winners_name>serega_pirat</winners_name><prize_money>500</prize_money></tournament><tournament id="4"><tournament_name>international</tournament_name><date>2011-11-11</date><sport_name>dota</sport_name><winners_name>aliteya</winners_name><prize_money>500</prize_money></tournament></catalog>

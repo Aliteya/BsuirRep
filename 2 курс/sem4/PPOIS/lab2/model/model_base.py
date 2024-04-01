@@ -1,6 +1,5 @@
 from psycopg2 import *
 import psycopg2 as ps
-# from view.view_interf import *
 
 class ModelBase:
     def __init__(self, host, port, database, user, password):
